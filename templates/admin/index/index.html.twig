@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form action="" method="GET">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="status">Statü</label>
+                    <select name="status" id="status" class="form-control">
+                        <option value="">Seçiniz</option>
+                        {% for statu in status %}
+                            <option value="{{ statu.id }}">{{ statu.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="ageBetween">Yaş Aralığı</label>
+                    <select name="ageBetween" id="ageBetween" class="form-control">
+                        <option value="">Seçiniz</option>
+                        {% for ageBetw in ageBetween %}
+                            <option value="{{ ageBetw.id }}">{{ ageBetw.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="category">Kategori</label>
+                    <select name="category" id="category" class="form-control">
+                        <option value="">Seçiniz</option>
+                        {% for catego in category %}
+                            <option value="{{ catego.id }}">{{ catego.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <button class="btn btn-block btn-secondary">Uygula</button>
+            </div>
+        </form>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Başlık</th>
+                    <th scope="col">İçerik</th>
+                    <th scope="col">Statü</th>
+                    <th scope="col">Yaş Aralığı</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Aksiyonlar</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for blog in blogs %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ blog.title }}</td>
+                        <td>{{ blog.content|default('boş') }}</td>
+                        <td>{{ blog.status.name }}</td>
+                        <td>{{ blog.ageBetween.name }}</td>
+                        <td>{{ blog.category.name }}</td>
+                        <td>
+                            <a href="{{ path('update-blog', {'id': blog.id}) }}" class="btn btn-info">Düzenle</a>
+                            <a href="{{ path('delete-blog', {'id': blog.id}) }}" class="btn btn-danger">Sil</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

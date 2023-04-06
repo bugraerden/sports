@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block body %}
+<div class="container">
+   <div class="card">
+       <div class="card-body">
+           <div class="row justify-content-md-center">
+               <div class="col-md-12 text-center">
+                  <h4>Blog Oluştur</h4>
+               </div>
+           </div>
+           <form action="" method="POST">
+               <div class="row justify-content-md-center">
+                   <div class="col-md-12">
+                       <label for="title">Başlık</label>
+                       <input class="form-control" type="text" name="title" placeholder="Başlık" id="title">
+                    </div>
+               </div>
+               <div class="row justify-content-md-center">
+                   <div class="col-md-12">
+                       <label for="content">İçerik</label>
+                       <textarea name="content" id="content" cols="30" rows="5" class="form-control" placeholder="İçerik"></textarea>
+                   </div>
+               </div>
+               <div class="row justify-content-md-center">
+                   <div class="col-md-4">
+                       <label for="status">Statü</label>
+                       <select class="form-control" name="status" id="status">
+                           <option value="">Seçiniz</option>
+                           {% for state in status %}
+                               <option value="{{ state.id }}">{{ state.name }}</option>
+                           {% endfor %}
+                       </select>
+                   </div>
+                   <div class="col-md-4">
+                       <label for="category">Kategori</label>
+                       <select class="form-control" name="category" id="category">
+                           <option value="">Seçiniz</option>
+                           {% for categor in category %}
+                               <option value="{{ categor.id }}">{{ categor.name }}</option>
+                           {% endfor %}
+                       </select>
+                   </div>
+                   <div class="col-md-4">
+                       <label for="ageBetween">Yaş Aralığı</label>
+                       <select class="form-control" name="ageBetween" id="ageBetween">
+                           <option value="">Seçiniz</option>
+                           {% for ageBet in ageBetween %}
+                               <option value="{{ ageBet.id }}">{{ ageBet.name }}</option>
+                           {% endfor %}
+                       </select>
+                   </div>
+               </div>
+               <br>
+               <div class="row justify-content-md-center">
+                   <div class="col-md-12">
+                       <button class="btn btn-success btn-block" type="submit">Kaydet</button>
+                   </div>
+               </div>
+           </form>
+       </div>
+   </div>
+</div>
+{% endblock %}
