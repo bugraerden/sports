@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\BlogService;
+namespace App\Service;
 
 use App\Entity\AgeBetween;
 use App\Entity\Blog;
@@ -61,6 +61,11 @@ class BlogService
         return $this->statusRepository->findAll();
     }
 
+    public function getActiveBlogs()
+    {
+        return $this->em->getRepository(Blog::class)->findBy(['deletedAt' => null]);
+    }
+
 
     public function getAllAgeBetween(): array
     {
@@ -80,6 +85,8 @@ class BlogService
         $blog->setCategory($this->em->getRepository(Category::class)->find($request->request->get('category')));
         $blog->setStatus($this->em->getRepository(Status::class)->find($request->request->get('status')));
         $blog->setAgeBetween($this->em->getRepository(AgeBetween::class)->find($request->request->get('ageBetween')));
+        $blog->setCreatedAt(new \DateTime());
+
 
         $this->em->persist($blog);
         $this->em->flush();
@@ -107,7 +114,9 @@ class BlogService
     public function delete($id)
     {
         $blog = $this->em->getRepository(Blog::class)->find($id);
-        $this->em->remove($blog);
+        $blog->setDeletedAt(new \DateTime());
+
+        $this->em->persist($blog);
         $this->em->flush();
     }
 }

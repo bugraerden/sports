@@ -9,7 +9,12 @@
 
     </head>
     <body>
+    {% set admin %}
      {% include 'includes/header.html.twig' %}
+    {% endset %}
+    {% set home %}
+        {% include 'includes/home_header.html.twig' %}
+    {% endset %}
         {% block body %}{% endblock %}
 
         {% block javascripts %}{% endblock %}
